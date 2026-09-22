@@ -116,7 +116,7 @@ export function SalesPage({ variant }: { variant: Variant }) {
           </div>
           <div className="hero-marquee" aria-hidden="true">
             <div className="hero-marquee-track continuous">
-              {[0, 1].map((group) => (
+              {Array.from({ length: 4 }, (_, group) => (
                 <div className="hero-marquee-group" key={group}>
                   {[...marqueeItems, ...marqueeItems].map((item, index) => (
                     <Fragment key={`${group}-${item}-${index}`}>
