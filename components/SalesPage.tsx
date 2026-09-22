@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { BrandMark } from "./BrandMark";
 import { FAQ } from "./FAQ";
 import { MotionController } from "./MotionController";
 import { heroVariants, outcomes, workshopBlocks } from "../content/site-content";
 
 type Variant = keyof typeof heroVariants;
+
+const marqueeItems = ["custo total", "calendário", "meta mensal", "próxima ação"];
 
 function ArrowIcon() {
   return (
@@ -113,22 +115,17 @@ export function SalesPage({ variant }: { variant: Variant }) {
             </div>
           </div>
           <div className="hero-marquee" aria-hidden="true">
-            <div className="continuous">
-              <span>custo total</span>
-              <i />
-              <span>calendário</span>
-              <i />
-              <span>meta mensal</span>
-              <i />
-              <span>próxima ação</span>
-              <i />
-              <span>custo total</span>
-              <i />
-              <span>calendário</span>
-              <i />
-              <span>meta mensal</span>
-              <i />
-              <span>próxima ação</span>
+            <div className="hero-marquee-track continuous">
+              {[0, 1].map((group) => (
+                <div className="hero-marquee-group" key={group}>
+                  {[...marqueeItems, ...marqueeItems].map((item, index) => (
+                    <Fragment key={`${group}-${item}-${index}`}>
+                      <span>{item}</span>
+                      <i />
+                    </Fragment>
+                  ))}
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -175,9 +172,28 @@ export function SalesPage({ variant }: { variant: Variant }) {
               <div className="method-label">Método Viagem Possível</div>
             </div>
             <div className="route-map reveal" aria-label="As três etapas do Método Viagem Possível">
-              <svg className="route-path" viewBox="0 0 620 260" aria-hidden="true">
-                <path className="route-path-base" d="M42 198C140 44 248 240 350 98c66-92 133-22 228-62" />
-                <path className="route-path-live" d="M42 198C140 44 248 240 350 98c66-92 133-22 228-62" />
+              <svg
+                className="route-path"
+                viewBox="0 0 620 560"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  className="route-path-base route-path-desktop"
+                  d="M65 347C148 257 194 276 269 202S382 92 455 84"
+                />
+                <path
+                  className="route-path-live route-path-desktop"
+                  d="M65 347C148 257 194 276 269 202S382 92 455 84"
+                />
+                <path
+                  className="route-path-base route-path-mobile"
+                  d="M42 52C42 120 51 175 42 228S33 337 42 404"
+                />
+                <path
+                  className="route-path-live route-path-mobile"
+                  d="M42 52C42 120 51 175 42 228S33 337 42 404"
+                />
               </svg>
               <article className="route-stop route-stop-one">
                 <span>1</span>

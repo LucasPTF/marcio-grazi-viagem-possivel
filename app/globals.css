@@ -530,16 +530,26 @@ h2 {
   background: rgba(6, 46, 54, 0.62);
 }
 
-.hero-marquee > div {
+.hero-marquee-track {
   display: flex;
   width: max-content;
   align-items: center;
-  gap: 28px;
-  padding: 18px 0;
   animation: marquee 28s linear infinite;
+  will-change: transform;
+}
+
+.hero-marquee-group {
+  display: flex;
+  min-width: 100vw;
+  flex: none;
+  align-items: center;
+  justify-content: space-around;
+  gap: 28px;
+  padding: 18px 28px 18px 0;
 }
 
 .hero-marquee span {
+  flex: none;
   color: rgba(255, 255, 255, 0.72);
   font-size: 0.68rem;
   font-weight: 800;
@@ -550,6 +560,7 @@ h2 {
 .hero-marquee i {
   width: 5px;
   height: 5px;
+  flex: none;
   border-radius: 50%;
   background: var(--amber);
 }
@@ -661,12 +672,18 @@ h2 {
 
 .route-path {
   position: absolute;
-  inset: 22% 8% auto;
-  width: 84%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   overflow: visible;
   fill: none;
+  pointer-events: none;
   stroke-linecap: round;
   stroke-width: 3;
+}
+
+.route-path-mobile {
+  display: none;
 }
 
 .route-path-base {
@@ -675,8 +692,8 @@ h2 {
 
 .route-path-live {
   stroke: var(--amber);
-  stroke-dasharray: 760;
-  stroke-dashoffset: 760;
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
 }
 
 .route-map.is-visible .route-path-live,
@@ -688,7 +705,7 @@ h2 {
   position: absolute;
   z-index: 2;
   width: 180px;
-  padding: 17px;
+  padding: 30px 17px 17px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 18px;
   background: rgba(7, 54, 63, 0.82);
@@ -702,31 +719,37 @@ h2 {
 }
 
 .route-stop-one {
-  bottom: 8%;
-  left: 4%;
+  top: 62%;
+  bottom: auto;
+  left: calc(10.484% - 40px);
   animation-delay: 500ms !important;
 }
 
 .route-stop-two {
-  top: 17%;
-  left: 38%;
+  top: 36%;
+  left: calc(43.387% - 40px);
   animation-delay: 950ms !important;
 }
 
 .route-stop-three {
-  right: 4%;
-  bottom: 17%;
+  top: 15%;
+  right: auto;
+  bottom: auto;
+  left: calc(73.387% - 40px);
   animation-delay: 1400ms !important;
 }
 
 .route-stop > span {
+  position: absolute;
+  top: -16px;
+  left: 24px;
   display: grid;
   width: 32px;
   height: 32px;
-  margin-bottom: 12px;
   place-items: center;
   border-radius: 50%;
   background: var(--amber);
+  box-shadow: 0 0 0 6px rgba(8, 63, 74, 0.9);
   color: var(--ink);
   font-size: 0.68rem;
   font-weight: 800;
@@ -812,6 +835,7 @@ h2 {
 }
 
 .result-section {
+  overflow-x: clip;
   background: var(--ocean-deep);
   color: #fff;
 }
@@ -1813,29 +1837,42 @@ h2 {
   }
 
   .route-path {
-    inset: 25% 5% auto;
-    width: 90%;
-    transform: rotate(22deg);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none;
+  }
+
+  .route-path-desktop {
+    display: none;
+  }
+
+  .route-path-mobile {
+    display: block;
   }
 
   .route-stop {
-    width: calc(100% - 44px);
+    right: auto;
+    left: 48px;
+    width: calc(100% - 70px);
+  }
+
+  .route-stop > span {
+    left: -42px;
   }
 
   .route-stop-one {
-    top: 24px;
+    top: 60px;
     bottom: auto;
-    left: 22px;
   }
 
   .route-stop-two {
-    top: 236px;
-    left: 22px;
+    top: 265px;
   }
 
   .route-stop-three {
-    right: 22px;
-    bottom: 24px;
+    top: 470px;
+    bottom: auto;
   }
 
   .workshop-grid {
@@ -1955,6 +1992,11 @@ h2 {
     opacity: 1 !important;
     transform: none !important;
   }
+
+  .hero-marquee-track {
+    animation: none !important;
+    transform: none !important;
+  }
 }
 
 @keyframes hero-rise {
@@ -2011,7 +2053,7 @@ h2 {
 
 @keyframes marquee {
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
